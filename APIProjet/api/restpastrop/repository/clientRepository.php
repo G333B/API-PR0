@@ -7,7 +7,7 @@ class clientRepository {
 
     public function __construct() {
         try {
-            $this->connection = pg_connect("host=database port=5432 dbname=todo_db user=todo password=password");
+            $this->connection = pg_connect("host=database port=5432 dbname=APIdb user=metroid password=password");
             if (  $this->connection == null ) {
                 throw new Exception("Could not connect to database.");
             }
@@ -18,7 +18,7 @@ class clientRepository {
 
     public function get_client(): array {
             $result = pg_query($this->connection, "SELECT * FROM client");
-            $todos = [];
+            $clients = [];
 
             if (!$result) {
                 throw new Exception(pg_last_error());
@@ -31,9 +31,9 @@ class clientRepository {
             return $client;
     }
 
-    public function get_reservation(): array {
-            $result = pg_query($this->connection, "SELECT * FROM reservation");
-            $todos = [];
+    public function getReservationClient(): array {
+            $result = pg_query($this->connection, "SELECT * FROM reservation INNER JOIN client ON client.idClient = reservation.idReservation");
+            $clients = [];
 
             if (!$result) {
                 throw new Exception(pg_last_error());
@@ -53,13 +53,13 @@ class clientRepository {
             throw new Exception(pg_last_error());
         }
 
-        $todo = pg_fetch_assoc($result); 
+        $clients = pg_fetch_assoc($result); 
 
-        if (!$todo) {
+        if (!$clients) {
             throw new BddNotFoundException("Requested client does not exist");        
         }
 
-        return $todo;
+        return $clients;
 
     }
 

@@ -1,5 +1,6 @@
 <?php 
-include_once "./repository/repository.php";
+include_once "./repository/clientRepository.php";
+include_once "./repository/reservationRepository.php";
 
 class clientService {
 
@@ -9,18 +10,10 @@ class clientService {
         $this->repository = new clientRepository();
     }
 
-    function geClient($idClient) {
+    function getClient($idClient) {
         return $this->repository->getClient($idClient);
     }
 
-    function createReservation($reservation){
-        $reservation
-    }
-
-    function seeReservation($Sreservation){
-
-    }
 }
-
 
 ?>

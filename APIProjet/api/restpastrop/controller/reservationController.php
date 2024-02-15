@@ -2,12 +2,12 @@
 include_once "./services/clientServices.php";
 include_once "./services/reservationServices.php";
 
-class userController {
+class reservController {
 
     private $service;
 
     function __construct() {
-        $this->service = new clientService();
+        $this->service = new reservService();
     }
 
     function dispatch($req, $res) {
@@ -36,12 +36,6 @@ class userController {
 
     }
 
-    function createUser($req, $res) {
-        $clientObject = new client($req->body->nom, $req->body->prenom, $req->body->age, $req->body->email, $req->body->role);
-
-
-        $new_todo = $this->service->createUser($clientObject);
-    }
 
     function createReservation($req, $res) {
         $clientObject = new reservation($req->body->dateDebut, $req->body->dateFin, $req->body->allPrix);
@@ -51,8 +45,8 @@ class userController {
     }
 
 
-    function getClient($req, $res) {
-        $todo = $this->service->getClient($req->uri[3]);
+    function getReservation($req, $res) {
+        $todo = $this->service->getReservation($req->uri[3]);
         
         $res->content = $todo;
     }
